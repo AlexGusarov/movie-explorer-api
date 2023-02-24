@@ -1,0 +1,21 @@
+{
+  "name": "movie-explorer-api",
+  "version": "1.0.0",
+  "description": "Server on Express.js with MongoDB. Backend for movies-explorer project",
+  "main": "app.js",
+  "scripts": {
+    "lint": "npx eslint .",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexGusarov/movie-explorer-api.git"
+  },
+  "author": "Alex Gus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexGusarov/movie-explorer-api/issues"
+  },
+  "homepage": "https://github.com/AlexGusarov/movie-explorer-api#readme"
+}
