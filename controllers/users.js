@@ -1,12 +1,12 @@
 const User = require('../models/user');
-// подключить класс ошибки NotFoundError
-// BadRequestError
+const NotFoundError = require('../errors/NotFoundError');
+const BadRequestError = require('../errors/BadRequetError');
 
 const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        // return Promise.reject(new NotFoundError('Пользователь с таким id не найден'));
+        return Promise.reject(new NotFoundError('Пользователь с таким id не найден'));
       }
       res.send(user);
     })
@@ -18,13 +18,13 @@ const updateUser = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
-        // return Promise.reject(new NotFoundError('Пользователь с таким id не найден'));
+        return Promise.reject(new NotFoundError('Пользователь с таким id не найден'));
       }
       res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        // return next(new BadRequestError('Переданы некорректные данные'));
+        return next(new BadRequestError('Переданы некорректные данные'));
       }
       next(err);
     });

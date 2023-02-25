@@ -1,7 +1,8 @@
 const Film = require('../models/film');
-
-// подключить CREATE_CODE
-// подключить NotFoundError, Forbidden, BadRequestError
+const NotFoundError = require('../errors/NotFoundError');
+const Forbidden = require('../errors/Forbidden');
+const BadRequestError = require('../errors/BadRequetError');
+const CREATE_CODE = require('../constants');
 
 // возвращает все сохранённые текущим пользователем фильмы
 const getMovies = (req, res, next) => {
@@ -45,12 +46,12 @@ const createMovie = (req, res, next) => {
     owner,
   })
     .then((movie) => Film.populate(movie, 'owner'))
-    // .then((movie) => {
-    // res.status(CREATE_CODE).send(movie);
-    // })
+    .then((movie) => {
+      res.status(CREATE_CODE).send(movie);
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        // return next(new BadRequestError('Переданы некорректные данные'));
+        return next(new BadRequestError('Переданы некорректные данные'));
       }
       next(err);
     });
@@ -62,18 +63,18 @@ const deleteMovie = (req, res, next) => {
     .populate('owner')
     .then((movie) => {
       if (!movie) {
-        // return Promise.reject(new NotFoundError('Карточка c таким id не найдена'));
+        return Promise.reject(new NotFoundError('Фильм c таким id не найден'));
       }
 
       if (!movie.owner.equals(req.user._id)) {
-        // return Promise.reject(new Forbidden('Можно удалять только свои карточки'));
+        return Promise.reject(new Forbidden('Можно удалять только свои фильмы'));
       }
       return movie.delete()
         .then(() => res.send({ message: 'Фильм удален' }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        // return next(new BadRequestError('Некорректный id карточки'));
+        return next(new BadRequestError('Некорректный id фильма'));
       }
       next(err);
     });
