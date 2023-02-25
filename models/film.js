@@ -59,11 +59,15 @@ const filmSchema = new mongoose.Schema({
 
   // _id пользователя, который сохранил фильм
   owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
     required: true,
   },
 
   // id фильма, который содержится в ответе сервиса MoviesExplorer
   movieId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'film',
     required: true,
   },
 
@@ -77,6 +81,11 @@ const filmSchema = new mongoose.Schema({
   nameEN: {
     type: String,
     required: true,
+  },
+
+  createAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 

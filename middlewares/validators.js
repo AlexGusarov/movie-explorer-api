@@ -1,6 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
 const userValidator = require('validator');
-// const { httpRegex } = require('../constants');
 
 const validateCreatingMovie = celebrate({
   body: Joi.object()
@@ -45,24 +44,22 @@ const validateMovieId = celebrate({
     }),
 });
 
-// const validateUserAuth = celebrate({
-//   body: Joi.object()
-//     .keys({
-//       email: Joi.string().required().email(),
-//       password: Joi.string().required(),
-//       name: Joi.string().min(2).max(30),
-//       about: Joi.string().min(2).max(30),
-//       avatar: Joi.string().regex(httpRegex),
-//     }),
-// });
+const validateCreatingUser = celebrate({
+  body: Joi.object()
+    .keys({
+      email: Joi.string().required().email(),
+      password: Joi.string().required(),
+      name: Joi.string().min(2).max(30),
+    }),
+});
 
-// const validateUserLogin = celebrate({
-//   body: Joi.object()
-//     .keys({
-//       email: Joi.string().required().email(),
-//       password: Joi.string().required(),
-//     }),
-// });
+const validateUserLogin = celebrate({
+  body: Joi.object()
+    .keys({
+      email: Joi.string().required().email(),
+      password: Joi.string().required(),
+    }),
+});
 
 const validateUserUpdate = celebrate({
   body: Joi.object()
@@ -80,20 +77,10 @@ const validateUserUpdate = celebrate({
 //     }),
 // });
 
-// const validateAvatar = celebrate({
-//   body: Joi.object()
-//     .keys({
-//       avatar: Joi.string().custom((value) => {
-//         if (userValidator.isURL(value)) {
-//           return value;
-//         }
-//       }),
-//     }),
-// });
-
 module.exports = {
   validateCreatingMovie,
   validateMovieId,
   validateUserUpdate,
-
+  validateCreatingUser,
+  validateUserLogin,
 };

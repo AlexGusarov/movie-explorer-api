@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { getUserInfo, updateUser } = require('../controllers/movies');
+const { getUserInfo, updateUser } = require('../controllers/users');
 const { validateUserUpdate } = require('../middlewares/validators');
 
 // возвращает информацию о пользователе (email и имя)
