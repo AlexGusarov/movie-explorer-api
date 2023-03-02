@@ -30,8 +30,7 @@ const validateCreatingMovie = celebrate({
             return value;
           }
         }),
-      owner: Joi.required(),
-      movieId: Joi.string().required(),
+      movieId: Joi.number().required(),
       nameRU: Joi.string().required(),
       nameEN: Joi.string().required(),
     }),
@@ -66,7 +65,6 @@ const validateUserUpdate = celebrate({
     .keys({
       name: Joi.string().min(2).max(30),
       email: Joi.string().required().email(),
-      password: Joi.string().required(),
     }),
 });
 

@@ -6,7 +6,6 @@ const CREATE_CODE = require('../constants');
 
 // возвращает все сохранённые текущим пользователем фильмы
 const getMovies = (req, res, next) => {
-  // если owner === текущий owner
   Film.find({})
     .then((movies) => res.send(movies))
     .catch(next);
@@ -25,7 +24,7 @@ const createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
@@ -38,29 +37,28 @@ const createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
     movieId,
     owner,
   })
-    .then((movie) => Film.populate(movie, 'owner'))
     .then((movie) => {
       res.status(CREATE_CODE).send(movie);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequestError('Переданы некорректные данные'));
+        next(new BadRequestError(`${err.message}`));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 
 // удаляет сохранённый фильм по id
 const deleteMovie = (req, res, next) => {
   Film.findById(req.params.movieId)
-    .populate('owner')
     .then((movie) => {
       if (!movie) {
         return Promise.reject(new NotFoundError('Фильм c таким id не найден'));
@@ -74,9 +72,10 @@ const deleteMovie = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return next(new BadRequestError('Некорректный id фильма'));
+        next(new BadRequestError('Некорректный id фильма'));
+      } else {
+        next(err);
       }
-      next(err);
     });
 };
 

@@ -13,9 +13,10 @@ const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        return Promise.reject(new NotFoundError('Пользователь с таким id не найден'));
+        Promise.reject(new NotFoundError('Пользователь с таким id не найден'));
+      } else {
+        res.send(user);
       }
-      res.send(user);
     })
     .catch(next);
 };
@@ -34,13 +35,14 @@ const createUser = async (req, res, next) => {
     res.status(CREATE_CODE).send({
       name: user.name,
       email: user.email,
+      _id: user._id,
     });
   } catch (err) {
     if (err.code === 11000) {
       return next(new ConflictError('Пользователь уже зарегистрирован'));
     }
     if (err.name === 'ValidationError') {
-      return next(new BadRequestError('Переданы некорректные данные'));
+      return next(new BadRequestError(`${err.message}`));
     }
     next(err);
   }
@@ -57,7 +59,7 @@ const updateUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequestError('Переданы некорректные данные'));
+        return next(new BadRequestError(`${err.message}`));
       }
       next(err);
     });
@@ -82,7 +84,6 @@ const login = async (req, res, next) => {
           NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
           { expiresIn: '7d' },
         );
-
         return res.send({ token });
       }
     }

@@ -4,27 +4,27 @@ const validator = require('validator');
 const filmSchema = new mongoose.Schema({
   country: {
     type: String,
-    required: true,
+    required: [true, 'Необходимо указать название фильма'],
   },
 
   director: {
     type: String,
-    required: true,
+    required: [true, 'Необходимо указать режиссера фильма'],
   },
 
   duration: {
     type: Number,
-    required: true,
+    required: [true, 'Необходимо указать длительность фильма'],
   },
 
   year: {
     type: String,
-    required: true,
+    required: [true, 'Необходимо указать год фильма'],
   },
 
   description: {
     type: String,
-    required: true,
+    required: [true, 'Необходимо описание фильма'],
   },
 
   // ссылка на постер к фильму
@@ -66,21 +66,20 @@ const filmSchema = new mongoose.Schema({
 
   // id фильма, который содержится в ответе сервиса MoviesExplorer
   movieId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'film',
-    required: true,
+    type: Number,
+    required: [true, 'Необходимо указать id фильма'],
   },
 
   // название фильма на русском
   nameRU: {
     type: String,
-    required: true,
+    required: [true, 'Необходимо указать название фильма на русском языке'],
   },
 
   // название фильма на английском
   nameEN: {
     type: String,
-    required: true,
+    required: [true, 'Необходимо указать название фильма на английском языке'],
   },
 
   createAt: {
