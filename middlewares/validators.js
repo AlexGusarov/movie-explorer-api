@@ -15,6 +15,7 @@ const validateCreatingMovie = celebrate({
           if (userValidator.isURL(value)) {
             return value;
           }
+          return '';
         }),
       trailerLink: Joi.string()
         .required()
@@ -22,6 +23,7 @@ const validateCreatingMovie = celebrate({
           if (userValidator.isURL(value)) {
             return value;
           }
+          return '';
         }),
       thumbnail: Joi.string()
         .required()
@@ -29,6 +31,7 @@ const validateCreatingMovie = celebrate({
           if (userValidator.isURL(value)) {
             return value;
           }
+          return '';
         }),
       movieId: Joi.number().required(),
       nameRU: Joi.string().required(),
@@ -67,13 +70,6 @@ const validateUserUpdate = celebrate({
       email: Joi.string().required().email(),
     }),
 });
-
-// const validateUserID = celebrate({
-//   params: Joi.object()
-//     .keys({
-//       userId: Joi.string().length(24).hex().required(),
-//     }),
-// });
 
 module.exports = {
   validateCreatingMovie,

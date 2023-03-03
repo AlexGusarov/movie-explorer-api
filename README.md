@@ -25,7 +25,7 @@
 
 | Метод  | Эндпойнт | Функция| Данные |
 | :-     |   :-:    |   -   |  :-:  |
-|  **GET**   | /users/me| возвращает информацию о пользователе | name, email  |
+|**GET**   | /users/me| возвращает информацию о пользователе | name, email  |
 |**PATCH** | /users/me   | обновляет информацию о пользователе |name, email  |
 |**GET** | /movies   | возвращает сохраненные пользователем фильмы |  |
 |**POST** | /movies   | создаёт фильм |country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId   |
