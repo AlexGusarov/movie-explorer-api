@@ -12,8 +12,8 @@
 ```
 ## Описание
 
-Бэкенд для сервиса просмотра фильмов movie-explorer. Позволяет создавать и хранить данные о пользователях и фильмах.
 
+Бекенд для сервиса просмотра фильмов movie-explorer. Позволяет создавать и хранить данные о пользователях и фильмах.
 
 Доступен по адресу:<br>
 https://api.kapibar.nomoredomainsclub.ru/ 
@@ -25,15 +25,16 @@ https://api.kapibar.nomoredomainsclub.ru/
 ## API
 
 Все данные передаются в формате JSON.<br>
-Все роуты, кроме /signin и /signup, защищены авторизацией.
+
+Все роуты, кроме /signin и /signup, защищены авторизацией. 
 
 | Метод  | Эндпойнт | Функция| Данные |
 | :-     |   :-:    |   -   |  :-:  |
-|**GET**   | /users/me| возвращает информацию о пользователе | name, email  |
+|  **GET**   | /users/me| возвращает информацию о пользователе | name, email  |
 |**PATCH** | /users/me   | обновляет информацию о пользователе |name, email  |
 |**GET** | /movies   | возвращает сохраненные пользователем фильмы |  |
 |**POST** | /movies   | создаёт фильм |country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId   |
 |**DELETE** | /movies/:movieId   | удаляет сохранённый фильм | movieId |
 |**POST** | /signup   | создаёт пользователя |name, email, password |
 |**POST** | /signin   | проверяет переданные в теле почту и пароль и возвращает токен |email, password |
- 
+
