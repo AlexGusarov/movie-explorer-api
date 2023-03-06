@@ -2,11 +2,17 @@ const Film = require('../models/film');
 const NotFoundError = require('../errors/NotFoundError');
 const Forbidden = require('../errors/Forbidden');
 const BadRequestError = require('../errors/BadRequetError');
-const CREATE_CODE = require('../constants');
+const {
+  CREATE_CODE,
+  notFoundFilmMessage,
+  forbiddenFilmMessage,
+  deleteFilmMessage,
+  BadRequestFilmMessage,
+} = require('../constants');
 
 // возвращает все сохранённые текущим пользователем фильмы
 const getMovies = (req, res, next) => {
-  Film.find({})
+  Film.find({ owner: req.user._id })
     .then((movies) => res.send(movies))
     .catch(next);
 };
@@ -61,18 +67,18 @@ const deleteMovie = (req, res, next) => {
   Film.findById(req.params.movieId)
     .then((movie) => {
       if (!movie) {
-        return Promise.reject(new NotFoundError('Фильм c таким id не найден'));
+        return Promise.reject(new NotFoundError(notFoundFilmMessage));
       }
 
       if (!movie.owner.equals(req.user._id)) {
-        return Promise.reject(new Forbidden('Можно удалять только свои фильмы'));
+        return Promise.reject(new Forbidden(forbiddenFilmMessage));
       }
       return movie.delete()
-        .then(() => res.send({ message: 'Фильм удален' }));
+        .then(() => res.send({ message: deleteFilmMessage }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Некорректный id фильма'));
+        next(new BadRequestError(BadRequestFilmMessage));
       } else {
         next(err);
       }

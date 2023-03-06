@@ -82,10 +82,6 @@ const filmSchema = new mongoose.Schema({
     required: [true, 'Необходимо указать название фильма на английском языке'],
   },
 
-  createAt: {
-    type: Date,
-    default: Date.now,
-  },
 });
 
 module.exports = mongoose.model('film', filmSchema);
