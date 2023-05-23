@@ -32,7 +32,7 @@ https://api.kapibar.nomoredomainsclub.ru/
 |**PATCH** | /users/me   | обновляет информацию о пользователе |name, email  |
 |**GET** | /movies   | возвращает сохраненные пользователем фильмы |  |
 |**POST** | /movies   | создаёт фильм |country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId   |
-|**DELETE** | /movies/:movieId   | удаляет сохранённый фильм | movieId |
+|**DELETE** | /movies/:_id   | удаляет сохранённый фильм | _id |
 |**POST** | /signup   | создаёт пользователя |name, email, password |
 |**POST** | /signin   | проверяет переданные в теле почту и пароль и возвращает токен |email, password |
  
